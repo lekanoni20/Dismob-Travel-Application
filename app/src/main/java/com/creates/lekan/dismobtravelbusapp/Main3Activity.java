@@ -21,6 +21,28 @@ import cz.msebera.android.httpclient.Header;
 
 public class Main3Activity extends AppCompatActivity {
 
+    //Unit Testing for the HTTP Request.
+    static AsyncHttpClient client = new AsyncHttpClient();
+    static String baseUrl = "http://transportapi.com/v3/uk/places.json?lat=51.534121&lon=-0.006944" +
+            "&type=bus_stop&app_id=bf361ff7&app_key=3ea6fa46f6028793b6592b733ba96ec3";
+
+    public static void getData(final ServerCallback callback) {
+        String url = baseUrl + "get";
+        client.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                callback.onSuccess(statusCode, new String(responseBody));
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                callback.onFailure(statusCode, new String(responseBody));
+            }
+        });
+    }
+
+    //The Code that runs when the page loads
+    //The Transport API is used to get useful bus stop data like the atcocode.
+    //The bus stop name for the Author to use and send the data to Activity Four to get the Bus Times.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

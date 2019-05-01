@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private KeyStore keyStore;
     private Cipher cipher;
     private String KEY_NAME = "AndroidKey";
-
+    //This method would check if the user has Android marshmallow.
+    // It also checks to see if the user has a fingerprint lock set up on the device.
+    // The Fingerprint Manager would throw an error since the lock hasn’t been set up on the device yet.
+    //Therefore logic is needed to prevent this.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
